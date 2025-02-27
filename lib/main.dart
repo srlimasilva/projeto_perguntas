@@ -1,65 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:projeto_perguntas/questao.dart';
+import 'package:projeto_perguntas/resposta.dart';
 
-void main(List<String> args) {
-  runApp(PerguntaApp());
-}
+void main() => runApp(const PerguntaApp());
 
-class PerguntaApp extends StatefulWidget {
-
-  const PerguntaApp({super.key});
-
-  @override
-  State<PerguntaApp> createState() => _PerguntaAppState();
-}
-
-class _PerguntaAppState extends State<PerguntaApp> {
-
+class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSelecionada = 0;
+  final List<Map<String, Object>> _perguntas = const [
+    {
+      'texto': 'Qual é a sua cor favorita?',
+      'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco'],
+    },
+    {
+      'texto': 'Qual é o seu animal favorito?',
+      'respostas': ['Coelho', 'Cobra', 'Elefante', 'Leão'],
+    },
+    {
+      'texto': 'Qual é o seu instrutor favorito?',
+      'respostas': ['Maria', 'João', 'Leo', 'Beto'],
+    },
+  ];
 
-
-  void responder(){
+  void responder() {
     setState(() {
       perguntaSelecionada++;
     });
-    print("Pergunta respondida");
+    print(perguntaSelecionada);
+  }
+
+  bool get temPerguntaSelecionada {
+    return perguntaSelecionada < _perguntas.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<String> perguntas = [
-      "Qual é a sua cor favorita?",
-      "Qual é o seu animal favorito?",
-      "Qual é o animal que faz MU?"
-    ];
+    List<String> respostas = temPerguntaSelecionada
+        ? _perguntas[perguntaSelecionada]['respostas'] as List<String>
+        : [];
+
+    //for (String textoResp in perguntas[perguntaSelecionada]['respostas'] as List<String>) {
+    //respostas.add(Resposta(textoResp, responder));
+    //}
 
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
-        title: const Text("Perguntas"),
+        title: const Text('Perguntas'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start, // Perguntas ficam no topo
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(perguntas[perguntaSelecionada]),
-          TextButton(
-              child: const Text("Resposta 1"),
-              onPressed: () {
-                responder();
-              }),
-          TextButton(
-            child: const Text("Resposta 2"),
-            onPressed: () {
-              responder();
-            },
-          ),
-          TextButton(
-            child: const Text("Resposta 3"),
-            onPressed: () {
-              responder();
-            },
-          ),
+          if (temPerguntaSelecionada) ...[
+            Questao(_perguntas[perguntaSelecionada]['texto'] as String),
+            ...respostas.map((t) => Resposta(t, responder)),
+          ] else
+            Expanded(
+              // Para centralizar a mensagem
+              child: Center(
+                child: Text(
+                  'Parabéns! Você respondeu todas as perguntas.\nObrigado por participar!',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
         ],
       ),
     ));
+  }
+}
+
+class PerguntaApp extends StatefulWidget {
+  const PerguntaApp({super.key});
+
+  @override
+  PerguntaAppState createState() {
+    return PerguntaAppState();
   }
 }
