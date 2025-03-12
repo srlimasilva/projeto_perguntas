@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_perguntas/questao.dart';
-import 'package:projeto_perguntas/resposta.dart';
+import 'package:projeto_perguntas/resultado.dart';
+import 'package:projeto_perguntas/Questionario.dart';
 
 void main() => runApp(const PerguntaApp());
 
 class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSelecionada = 0;
-  final List<Map<String, Object>> _perguntas = const [
+  final List<Map<String, Object>> perguntas = const [
     {
       'texto': 'Qual é a sua cor favorita?',
       'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco'],
@@ -19,55 +19,40 @@ class PerguntaAppState extends State<PerguntaApp> {
       'texto': 'Qual é o seu instrutor favorito?',
       'respostas': ['Maria', 'João', 'Leo', 'Beto'],
     },
+    {
+      'texto': 'Você vai participar do campeonato de CS?',
+      'respostas': [
+        'SIM',
+        'SEM SOMBRAS DE DÚVIDAS QUE SIM',
+        'TALVEZ',
+        'COM CERTEZA'
+      ]
+    },
   ];
+
+  bool get temPerguntaSelecionada {
+    return perguntaSelecionada < perguntas.length;
+  }
 
   void responder() {
     setState(() {
       perguntaSelecionada++;
     });
-    print(perguntaSelecionada);
-  }
-
-  bool get temPerguntaSelecionada {
-    return perguntaSelecionada < _perguntas.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> respostas = temPerguntaSelecionada
-        ? _perguntas[perguntaSelecionada]['respostas'] as List<String>
-        : [];
-
-    //for (String textoResp in perguntas[perguntaSelecionada]['respostas'] as List<String>) {
-    //respostas.add(Resposta(textoResp, responder));
-    //}
-
     return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        title: const Text('Perguntas'),
+      home: Scaffold(
+        appBar: AppBar(title: const Text('JOGO DAS PERGUNTAS')),
+        body: temPerguntaSelecionada
+            ? Questionario(
+                perguntas: perguntas,
+                perguntaSelecionada: perguntaSelecionada,
+                responder: responder)
+            : Resultado(),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start, // Perguntas ficam no topo
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (temPerguntaSelecionada) ...[
-            Questao(_perguntas[perguntaSelecionada]['texto'] as String),
-            ...respostas.map((t) => Resposta(t, responder)),
-          ] else
-            Expanded(
-              // Para centralizar a mensagem
-              child: Center(
-                child: Text(
-                  'Parabéns! Você respondeu todas as perguntas.\nObrigado por participar!',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-        ],
-      ),
-    ));
+    );
   }
 }
 
