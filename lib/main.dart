@@ -8,25 +8,29 @@ class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSelecionada = 0;
   final List<Map<String, Object>> perguntas = const [
     {
-      'texto': 'Qual é a sua cor favorita?',
-      'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco'],
-    },
-    {
-      'texto': 'Qual é o seu animal favorito?',
-      'respostas': ['Coelho', 'Cobra', 'Elefante', 'Leão'],
-    },
-    {
-      'texto': 'Qual é o seu instrutor favorito?',
-      'respostas': ['Maria', 'João', 'Leo', 'Beto'],
-    },
-    {
-      'texto': 'Você vai participar do campeonato de CS?',
+      'texto': 'COMO PODEMOS APRENDER FLUTTER DA MELHOR FORMA?',
       'respostas': [
-        'SIM',
-        'SEM SOMBRAS DE DÚVIDAS QUE SIM',
-        'TALVEZ',
-        'COM CERTEZA'
-      ]
+        'UTILIZANDO O CHATGPT',
+        'USANDO O GEMINI',
+        'PESQUISANDO E PRATICANDO BASTANTE',
+        'UTILIZANDO A DEEPSEEKB'
+      ],
+    },
+    {
+      'texto': 'QUAL A COMPOSIÇÃO QUÍMICA DA AGUA?',
+      'respostas': ['CO2', 'H2SO4', 'NaHCO3', 'CaCO3'],
+    },
+    {
+      'texto': 'QUAL É A RAIZ QUADRADA DE 16?',
+      'respostas': ['25', '4', '3', '2X17+25'],
+    },
+    {
+      'texto': 'QUAL CONTINENTE FICA A AUSTRALIA?',
+      'respostas': ['HEMISFERIO SUL', 'OCEANIA', 'AMERICA DO NORTE', 'EUROPA']
+    },
+    {
+      'texto': 'QUAL A CAPITAL DO JAPÃO?',
+      'respostas': ['TOKIO', 'BRASILIA', 'PARIS', 'OTTAWA']
     },
   ];
 
@@ -44,7 +48,18 @@ class PerguntaAppState extends State<PerguntaApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('JOGO DAS PERGUNTAS')),
+        appBar: AppBar(
+          title: const Text(
+            'SHOW DO MILHÃO',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(221, 30, 0, 70), // Cor vibrante
+          foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+        ),
         body: temPerguntaSelecionada
             ? Questionario(
                 perguntas: perguntas,
