@@ -49,16 +49,27 @@ class PerguntaAppState extends State<PerguntaApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'SHOW DO MILHÃO',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                
+                'images/logo.png',
+                
+                height: 100, // Ajuste conforme necessário
+              ),
+              const Text(
+                'SHOW DO MILHÃO',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
           centerTitle: true,
           backgroundColor: const Color.fromARGB(221, 30, 0, 70), // Cor vibrante
-          foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+          foregroundColor: Colors.white,
         ),
         body: temPerguntaSelecionada
             ? Questionario(
