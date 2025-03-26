@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_perguntas/resultado.dart';
-import 'package:projeto_perguntas/Questionario.dart';
+import 'package:projeto_perguntas/questionario.dart';
 
 void main() => runApp(const PerguntaApp());
 
@@ -62,7 +62,7 @@ class PerguntaAppState extends State<PerguntaApp> {
                 'SHOW DO MILHÃO',
                 style: TextStyle(
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
             ],
